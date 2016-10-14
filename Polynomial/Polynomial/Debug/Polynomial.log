@@ -1,0 +1,11 @@
+﻿  Polynomial.cpp
+e:\visualstudio project\polynomial\polynomial\polynomial.cpp(179): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+e:\visualstudio project\polynomial\polynomial\polynomial.cpp(220): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
+e:\visualstudio project\polynomial\polynomial\polynomial.cpp(225): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
+e:\visualstudio project\polynomial\polynomial\polynomial.cpp(228): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1270): note: 参见“scanf”的声明
+e:\visualstudio project\polynomial\polynomial\polynomial.cpp(218): warning C4101: “t”: 未引用的局部变量
+  Polynomial.vcxproj -> E:\VisualStudio Project\Polynomial\Debug\Polynomial.exe
+  Polynomial.vcxproj -> E:\VisualStudio Project\Polynomial\Debug\Polynomial.pdb (Full PDB)
