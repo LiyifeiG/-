@@ -280,6 +280,5 @@ int main(int argc , char **args)
 	HorsePath(start);   //从初始位置开始走
 	ShowPath();     //输出
 	system("Pause");  //这一行是暂停窗口，可以不看
-	//看完给个好评呗^-^
 	return 0;
 }
