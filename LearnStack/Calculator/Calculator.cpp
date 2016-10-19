@@ -5,15 +5,14 @@
  *Github:https://www.Github.com/Amnnny
  */
 
-
+#include "Stack.h"            //自实现栈
 #include <string>
-#include <stack>
 #include <iostream>
 #include <ccomplex>
 const int MAX_COUNT = 1024;
 using namespace std;
-stack<char> operator_stack;      //定义运算符栈
-stack<double> number_stack;      //定义数据栈
+Stack<char> operator_stack;      //定义运算符栈
+Stack<double> number_stack;      //定义数据栈
 char operators[] = { '+' , '-' , '*' , '/' , '(' , ')' };
 char list_operators[6][6] =                                 ///符号优先级对照表  1表示优先级大于  
 {
@@ -112,13 +111,13 @@ int AnalyzingPriority(char operator1 , char operator2)     //分析操作符优先级
 ///提取两个数据栈里的数据和一个操作符数据进行计算，并且将结果压入数据栈
 void SetNumber()
 {
-	char temp_oper = operator_stack.top();
-	operator_stack.pop();
-	double num1 = number_stack.top();
-	number_stack.pop();
-	double num2 = number_stack.top();
-	number_stack.pop();
-	number_stack.push(ComPuteBase(num2 , temp_oper , num1));
+	char temp_oper = operator_stack.Top();
+	operator_stack.Pop();
+	double num1 = number_stack.Top();
+	number_stack.Pop();
+	double num2 = number_stack.Top();
+	number_stack.Pop();
+	number_stack.Push(ComPuteBase(num2 , temp_oper , num1));
 }
 
 ///对分析好的字符串数组进行计算
@@ -128,40 +127,40 @@ double Compute(string buf_string[] , int len)
 	{
 		if (buf_string[i].length() > 1 || buf_string[i][0] <= '9' && buf_string[i][0] >= '0')   //如果是数字  将其转化为数字之后压入栈中
 		{
-			number_stack.push(StrToDouble(buf_string[i]));
+			number_stack.Push(StrToDouble(buf_string[i]));
 		}
 		else   //如果不是
 		{
 			if (buf_string[i][0] == ')')     //如果当前运算符为')'
 			{
-				while (operator_stack.top() != '(')
+				while (operator_stack.Top() != '(')
 				{
 					SetNumber();
 				}
-				operator_stack.pop();
+				operator_stack.Pop();
 			}
-			else if (operator_stack.empty() || operator_stack.top() == '(' || buf_string[i][0] == '('  || AnalyzingPriority(operator_stack.top() , buf_string[i][0]) == -1)
+			else if (operator_stack.Empty() || operator_stack.Top() == '(' || buf_string[i][0] == '('  || AnalyzingPriority(operator_stack.Top() , buf_string[i][0]) == -1)
 			{
-				operator_stack.push(buf_string[i][0]);         //如果栈为空或者操作符优先级大于栈顶操作符则入栈
+				operator_stack.Push(buf_string[i][0]);         //如果栈为空或者操作符优先级大于栈顶操作符则入栈
 			}
 			else
 			{
 				//栈顶运算符优先级大于等于当前运算符
-				while (AnalyzingPriority(operator_stack.top() , buf_string[i][0]) != -1)
+				while (AnalyzingPriority(operator_stack.Top() , buf_string[i][0]) != -1)
 				{
 					SetNumber();
-					operator_stack.push(buf_string[i][0]);
+					operator_stack.Push(buf_string[i][0]);
 					break;
 				}
 			}
 		}
 	}
 
-	while (!operator_stack.empty())
+	while (!operator_stack.Empty())
 	{
 		SetNumber();
 	}
-	return number_stack.top();
+	return number_stack.Top();
 }
 
 ///基本计算
@@ -189,10 +188,11 @@ double ComPuteBase(double num1 , char oper , double num2)
 
 int main(int argc , char* argv[])
 {
+
 	auto str = Input();
 	string bufs[100];
 	int len = ParseStr(str , bufs);
-	cout << Compute(bufs , len);
+	cout << Compute(bufs , len) << endl;
 	system("Pause");
 	return 0;
 }

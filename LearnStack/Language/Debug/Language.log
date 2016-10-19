@@ -1,5 +1,5 @@
 ﻿  Language.cpp
-e:\visualstudio project\acm\learnstack\language\language.cpp(64): warning C4018: “<”: 有符号/无符号不匹配
-e:\visualstudio project\acm\learnstack\language\language.cpp(80): warning C4018: “<”: 有符号/无符号不匹配
+e:\visualstudio project\acm\learnstack\language\language.cpp(63): warning C4018: “<”: 有符号/无符号不匹配
+e:\visualstudio project\acm\learnstack\language\language.cpp(79): warning C4018: “<”: 有符号/无符号不匹配
   Language.vcxproj -> E:\VisualStudio Project\ACM\LearnStack\Debug\Language.exe
   Language.vcxproj -> E:\VisualStudio Project\ACM\LearnStack\Debug\Language.pdb (Full PDB)
