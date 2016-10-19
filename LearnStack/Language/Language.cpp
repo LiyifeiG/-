@@ -32,7 +32,7 @@ string FindRule(char beel_lan)
 	if (rule_map.count(beel_lan) == 0)    //如果表中没有这个字符，则将他原样返回
 	{
 		stringstream stream;
-		stream << beel_lan;
+		stream << static_cast<char>(beel_lan+32);
 		return stream.str();
 	}
 	return rule_map.find(beel_lan)->second;         //如果有，返回他对应的值
