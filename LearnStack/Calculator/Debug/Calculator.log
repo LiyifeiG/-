@@ -1,4 +1,5 @@
-﻿  Main.cpp
+﻿cl : 命令行 warning D9028: 最小重新生成失败，正在转换为标准生成
+  Main.cpp
 e:\visualstudio project\acm\learnstack\calculator\main.cpp(50): warning C4018: “<”: 有符号/无符号不匹配
 e:\visualstudio project\acm\learnstack\calculator\main.cpp(78): warning C4018: “<”: 有符号/无符号不匹配
 e:\visualstudio project\acm\learnstack\calculator\main.cpp(88): warning C4018: “<”: 有符号/无符号不匹配

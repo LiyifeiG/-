@@ -170,10 +170,17 @@ double ComPuteBase(double num1 , char oper , double num2)
 	double result = 0.0;
 	switch (oper)
 	{
-		case '+':result = num1 + num2; break;
-		case '-':result = num1 - num2; break;
-		case '*':result = num1 * num2; break;
-		case '/':result = num1 / num2; break;
+		case '+':result = num2 + num1; break;
+		case '-':result = num2 - num1; break;
+		case '*':result = num2 * num1; break;
+		case '/':
+			if (num1 == 0)
+			{
+				puts("出现错误!除数为0");
+				system("Pause");
+				exit(-1);
+			}   
+		 break;
 		default:break;
 	}
 	return result;
