@@ -15,12 +15,12 @@ private:
 public:
 	Stack()
 	{
-		base = new s_node_[1];
+		base = new s_node_;
 		base->next = nullptr;
 	}
 	void Push(T data)
 	{
-		s_node_ *t_node = new s_node_[1];
+		s_node_ *t_node = new s_node_;
 		t_node->data = data;
 		t_node->next = base->next;
 		base->next = t_node;
