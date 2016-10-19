@@ -74,7 +74,7 @@ double StrToDouble(string str)
 	double integer = 0 ,                  //定义整数部分
 		decimal = 0;                   //定义小数部分
 	int point_index = str.length();       //定义小数点的位置
-	for (int j = 0; j < str.length(); j++)          //找到小数点的位置
+	for (auto j = 0; j < str.length(); j++)          //找到小数点的位置
 	{
 		if (str[j] == '.')
 		{
@@ -84,12 +84,12 @@ double StrToDouble(string str)
 	}
 	if (point_index != str.length())                          //计算小数部分
 	{
-		for (int i = point_index + 1; i < str.length(); i++)
+		for (auto i = point_index + 1; i < str.length(); i++)
 		{
 			decimal += (str[i] - '0')*pow(10 , point_index - i);
 		}
 	}
-	for (int i = point_index - 1; i >= 0; i--)                //计算整数部分
+	for (auto i = point_index - 1; i >= 0; i--)                //计算整数部分
 	{
 		integer += (str[i] - '0')*pow(10 , point_index - i - 1);
 	}
@@ -99,8 +99,8 @@ double StrToDouble(string str)
 ///分析操作符优先级
 int AnalyzingPriority(char operator1 , char operator2)     //分析操作符优先级
 {
-	int j = -1 , k = -1;
-	for (int i = 0; i < 6; i++)
+	auto j = -1 , k = -1;
+	for (auto i = 0; i < 6; i++)
 	{
 		if (operator1 == operators[i]) j = i;
 		if (operator2 == operators[i]) k = i;
@@ -111,11 +111,11 @@ int AnalyzingPriority(char operator1 , char operator2)     //分析操作符优先级
 ///提取两个数据栈里的数据和一个操作符数据进行计算，并且将结果压入数据栈
 void SetNumber()
 {
-	char temp_oper = operator_stack.Top();
+	auto temp_oper = operator_stack.Top();
 	operator_stack.Pop();
-	double num1 = number_stack.Top();
+	auto num1 = number_stack.Top();
 	number_stack.Pop();
-	double num2 = number_stack.Top();
+	auto num2 = number_stack.Top();
 	number_stack.Pop();
 	number_stack.Push(ComPuteBase(num2 , temp_oper , num1));
 }
@@ -123,7 +123,7 @@ void SetNumber()
 ///对分析好的字符串数组进行计算
 double Compute(string buf_string[] , int len)
 {
-	for (int i = 0; i < len; i++)
+	for (auto i = 0; i < len; i++)
 	{
 		if (buf_string[i].length() > 1 || buf_string[i][0] <= '9' && buf_string[i][0] >= '0')   //如果是数字  将其转化为数字之后压入栈中
 		{
@@ -166,7 +166,7 @@ double Compute(string buf_string[] , int len)
 ///基本计算
 double ComPuteBase(double num1 , char oper , double num2)
 {
-	double result = 0.0;
+	auto result = 0.0;
 	switch (oper)
 	{
 		case '+':result = num1 + num2; break;
@@ -191,7 +191,7 @@ int main(int argc , char* argv[])
 
 	auto str = Input();
 	string bufs[100];
-	int len = ParseStr(str , bufs);
+	auto len = ParseStr(str , bufs);
 	cout << Compute(bufs , len) << endl;
 	system("Pause");
 	return 0;

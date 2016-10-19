@@ -59,8 +59,8 @@ void Remove(char beel_lin)
 ///递归执行规则一
 void BeelToHumen(char beel_lan)
 {
-	string t_string = FindRule(beel_lan);
-	for (int j = 0; j < t_string.length(); j++)
+	auto t_string = FindRule(beel_lan);
+	for (auto j = 0; j < t_string.length(); j++)
 	{
 		if (t_string[j] >= 'A' && t_string[j] <= 'Z')
 		{
@@ -76,7 +76,7 @@ void BeelToHumen(char beel_lan)
 ///翻译魔王语言
 void Translate(string beel_buf)
 {
-	for (int i = 0 ; i < beel_buf.length() ; i++)
+	for (auto i = 0 ; i < beel_buf.length() ; i++)
 	{
 		if ((beel_buf[i] < 'A' || beel_buf[i] > 'Z' || beel_buf[i] == '(') && beel_buf[i] != ')')   //如果不属于要转换的字符  则入栈
 		{
