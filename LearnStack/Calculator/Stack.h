@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <memory>
 
-template<class T> class Stack
+template<typename T> class Stack
 {
 private:
 	typedef struct node
@@ -18,28 +18,30 @@ public:
 		base = new s_node_;
 		base->next = nullptr;
 	}
-	void Push(T data)
+	void push(T data)
 	{
 		s_node_ *t_node = new s_node_;
 		t_node->data = data;
 		t_node->next = base->next;
 		base->next = t_node;
 	}
-	void Pop()
+	void pop()
 	{
-		if (Empty()) return;
+		if (empty()) return;
+		s_node_ *t = base->next;
 		base->next = base->next->next;
+		delete t;
 	}
 
-	bool Empty()
+	bool empty()
 	{
 		if (!base->next)	return true;
 		return false;
 	}
 
-	T Top()
+	T top()
 	{
-		if (Empty()) return false;
+		if (empty()) return false;
 		return base->next->data;
 	}
 
