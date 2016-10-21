@@ -138,9 +138,9 @@ double Compute(string buf_string[] , int len)
 				}
 				operator_stack.pop();
 			}
-			else if (operator_stack.empty() || operator_stack.top() == '(' || buf_string[i][0] == '('  || AnalyzingPriority(operator_stack.top() , buf_string[i][0]) == -1)
+			else if (operator_stack.empty() || operator_stack.top() == '(' || buf_string[i][0] == '(' || AnalyzingPriority(operator_stack.top() , buf_string[i][0]) == -1)
 			{
-				operator_stack.push(buf_string[i][0]);         //如果栈为空或者操作符优先级大于栈顶操作符则入栈
+				operator_stack.push(buf_string[i][0]);         //如果栈为空或者操作符优先级大于栈顶操作符或者在'('之后或者为'('则入栈
 			}
 			else
 			{
@@ -154,8 +154,7 @@ double Compute(string buf_string[] , int len)
 			}
 		}
 	}
-
-	while (!operator_stack.empty())
+	while (!operator_stack.empty())     //如果栈不为空  
 	{
 		SetNumber();
 	}
@@ -177,9 +176,9 @@ double ComPuteBase(double num1 , char oper , double num2)
 				puts("出现错误!除数为0");
 				system("Pause");
 				exit(-1);
-			}   
+			}
 			result = num1 / num2;
-		 break;
+			break;
 		default:break;
 	}
 	return result;
