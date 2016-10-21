@@ -1,19 +1,19 @@
-/*
+ï»¿/*
  *Created 2016 10 14
  *Author:Yangfan
  *Email:imqqyangfan@gmail.com
  *Github:https://www.Github.com/Amnnny
  */
 
-#include "stack.h"            //×ÔÊµÏÖÕ»
+#include "stack.h"            //è‡ªå®ç°æ ˆ
 #include <string>
 #include <iostream>
 #include <ccomplex>
 using namespace std;
-Stack<char> operator_stack;      //¶¨ÒåÔËËã·ûÕ»
-Stack<double> number_stack;      //¶¨ÒåÊı¾İÕ»
+Stack<char> operator_stack;      //å®šä¹‰è¿ç®—ç¬¦æ ˆ
+Stack<double> number_stack;      //å®šä¹‰æ•°æ®æ ˆ
 char32_t operators[] = { '+' , '-' , '*' , '/' , '(' , ')' };
-int32_t list_operators[6][6] =                                 ///·ûºÅÓÅÏÈ¼¶¶ÔÕÕ±í  1±íÊ¾ÓÅÏÈ¼¶´óÓÚ  
+int32_t list_operators[6][6] =                                 ///ç¬¦å·ä¼˜å…ˆçº§å¯¹ç…§è¡¨  1è¡¨ç¤ºä¼˜å…ˆçº§å¤§äº  
 {
 		0 , 0 , -1 , -1 , -1 , -1 ,
 		0 , 0 , -1 , -1 , -1 , -1 ,
@@ -23,7 +23,6 @@ int32_t list_operators[6][6] =                                 ///·ûºÅÓÅÏÈ¼¶¶ÔÕÕ
 		1 , 1 ,  1 ,  1 ,  0 ,  0
 };
 
-
 string Input();
 int ParseStr(string str , string buf_string[]);
 double StrToDouble(string str);
@@ -32,16 +31,16 @@ double Compute(string buf_string[] , int len);
 double ComPuteBase(double num1 , char oper , double num2);
 void SetNumber();
 
-///ÊäÈë×Ö·û´®(ÎŞ¿Õ¸ñ)
+///è¾“å…¥å­—ç¬¦ä¸²(æ— ç©ºæ ¼)
 string Input()
 {
 	cout << "Please input a Expression:";
-	string str;
-	cin >> str;
-	return str;
+ 	auto str = make_shared<string>();
+	cin >> *str;
+	return *str;
 }
 
-///½âÎö×Ö·û´® ×ª»¯ÎªstringÊı×é ex:{"32.3" ,"+" ,"4"}
+///è§£æå­—ç¬¦ä¸² è½¬åŒ–ä¸ºstringæ•°ç»„ ex:{"32.3" ,"+" ,"4"}
 int ParseStr(string str , string buf_string[])
 {
 	auto index = 0;
@@ -67,13 +66,13 @@ int ParseStr(string str , string buf_string[])
 	return index + 1;
 }
 
-///¸ù¾İ×Ö·û´®¸ñÊ½»ñµÃdoubleÊı¾İ
+///æ ¹æ®å­—ç¬¦ä¸²æ ¼å¼è·å¾—doubleæ•°æ®
 double StrToDouble(string str)
 {
-	double integer = 0 ,                  //¶¨ÒåÕûÊı²¿·Ö
-		decimal = 0;                   //¶¨ÒåĞ¡Êı²¿·Ö
-	int point_index = str.length();       //¶¨ÒåĞ¡ÊıµãµÄÎ»ÖÃ
-	for (size_t j = 0; j < str.length(); j++)          //ÕÒµ½Ğ¡ÊıµãµÄÎ»ÖÃ
+	double integer = 0 ,                  //å®šä¹‰æ•´æ•°éƒ¨åˆ†
+		decimal = 0;                   //å®šä¹‰å°æ•°éƒ¨åˆ†
+	int point_index = str.length();       //å®šä¹‰å°æ•°ç‚¹çš„ä½ç½®
+	for (size_t j = 0; j < str.length(); j++)          //æ‰¾åˆ°å°æ•°ç‚¹çš„ä½ç½®
 	{
 		if (str[j] == '.')
 		{
@@ -81,22 +80,22 @@ double StrToDouble(string str)
 			break;
 		}
 	}
-	if (point_index != str.length())                          //¼ÆËãĞ¡Êı²¿·Ö
+	if (point_index != str.length())                          //è®¡ç®—å°æ•°éƒ¨åˆ†
 	{
 		for (size_t i = point_index + 1; i < str.length(); i++)
 		{
 			decimal += (str[i] - '0')*pow(10 , point_index - i);
 		}
 	}
-	for (auto i = point_index - 1; i >= 0; i--)                //¼ÆËãÕûÊı²¿·Ö
+	for (auto i = point_index - 1; i >= 0; i--)                //è®¡ç®—æ•´æ•°éƒ¨åˆ†
 	{
 		integer += (str[i] - '0')*pow(10 , point_index - i - 1);
 	}
 	return integer + decimal;
 }
 
-///·ÖÎö²Ù×÷·ûÓÅÏÈ¼¶
-int AnalyzingPriority(char operator1 , char operator2)     //·ÖÎö²Ù×÷·ûÓÅÏÈ¼¶
+///åˆ†ææ“ä½œç¬¦ä¼˜å…ˆçº§
+int AnalyzingPriority(char operator1 , char operator2)     //åˆ†ææ“ä½œç¬¦ä¼˜å…ˆçº§
 {
 	auto j = -1 , k = -1;
 	for (auto i = 0; i < 6; i++)
@@ -107,7 +106,7 @@ int AnalyzingPriority(char operator1 , char operator2)     //·ÖÎö²Ù×÷·ûÓÅÏÈ¼¶
 	return list_operators[j][k];
 }
 
-///ÌáÈ¡Á½¸öÊı¾İÕ»ÀïµÄÊı¾İºÍÒ»¸ö²Ù×÷·ûÊı¾İ½øĞĞ¼ÆËã£¬²¢ÇÒ½«½á¹ûÑ¹ÈëÊı¾İÕ»
+///æå–ä¸¤ä¸ªæ•°æ®æ ˆé‡Œçš„æ•°æ®å’Œä¸€ä¸ªæ“ä½œç¬¦æ•°æ®è¿›è¡Œè®¡ç®—ï¼Œå¹¶ä¸”å°†ç»“æœå‹å…¥æ•°æ®æ ˆ
 void SetNumber()
 {
 	auto temp_oper = operator_stack.top();
@@ -119,18 +118,18 @@ void SetNumber()
 	number_stack.push(ComPuteBase(num2 , temp_oper , num1));
 }
 
-///¶Ô·ÖÎöºÃµÄ×Ö·û´®Êı×é½øĞĞ¼ÆËã
+///å¯¹åˆ†æå¥½çš„å­—ç¬¦ä¸²æ•°ç»„è¿›è¡Œè®¡ç®—
 double Compute(string buf_string[] , int len)
 {
 	for (auto i = 0; i < len; i++)
 	{
-		if (buf_string[i].length() > 1 || buf_string[i][0] <= '9' && buf_string[i][0] >= '0')   //Èç¹ûÊÇÊı×Ö  ½«Æä×ª»¯ÎªÊı×ÖÖ®ºóÑ¹ÈëÕ»ÖĞ
+		if (buf_string[i].length() > 1 || buf_string[i][0] <= '9' && buf_string[i][0] >= '0')   //å¦‚æœæ˜¯æ•°å­—  å°†å…¶è½¬åŒ–ä¸ºæ•°å­—ä¹‹åå‹å…¥æ ˆä¸­
 		{
 			number_stack.push(StrToDouble(buf_string[i]));
 		}
-		else   //Èç¹û²»ÊÇ
+		else   //å¦‚æœä¸æ˜¯
 		{
-			if (buf_string[i][0] == ')')     //Èç¹ûµ±Ç°ÔËËã·ûÎª')'
+			if (buf_string[i][0] == ')')     //å¦‚æœå½“å‰è¿ç®—ç¬¦ä¸º')'
 			{
 				while (operator_stack.top() != '(')
 				{
@@ -140,11 +139,11 @@ double Compute(string buf_string[] , int len)
 			}
 			else if (operator_stack.empty() || operator_stack.top() == '(' || buf_string[i][0] == '(' || AnalyzingPriority(operator_stack.top() , buf_string[i][0]) == -1)
 			{
-				operator_stack.push(buf_string[i][0]);         //Èç¹ûÕ»Îª¿Õ»òÕß²Ù×÷·ûÓÅÏÈ¼¶´óÓÚÕ»¶¥²Ù×÷·û»òÕßÔÚ'('Ö®ºó»òÕßÎª'('ÔòÈëÕ»
+				operator_stack.push(buf_string[i][0]);         //å¦‚æœæ ˆä¸ºç©ºæˆ–è€…æ“ä½œç¬¦ä¼˜å…ˆçº§å¤§äºæ ˆé¡¶æ“ä½œç¬¦æˆ–è€…åœ¨'('ä¹‹åæˆ–è€…ä¸º'('åˆ™å…¥æ ˆ
 			}
 			else
 			{
-				//Õ»¶¥ÔËËã·ûÓÅÏÈ¼¶´óÓÚµÈÓÚµ±Ç°ÔËËã·û
+				//æ ˆé¡¶è¿ç®—ç¬¦ä¼˜å…ˆçº§å¤§äºç­‰äºå½“å‰è¿ç®—ç¬¦
 				while (AnalyzingPriority(operator_stack.top() , buf_string[i][0]) != -1)
 				{
 					SetNumber();
@@ -154,14 +153,14 @@ double Compute(string buf_string[] , int len)
 			}
 		}
 	}
-	while (!operator_stack.empty())     //Èç¹ûÕ»²»Îª¿Õ  
+	while (!operator_stack.empty())     //å¦‚æœæ ˆä¸ä¸ºç©º  
 	{
 		SetNumber();
 	}
 	return number_stack.top();
 }
 
-///»ù±¾¼ÆËã
+///åŸºæœ¬è®¡ç®—
 double ComPuteBase(double num1 , char oper , double num2)
 {
 	auto result = 0.0;
@@ -173,7 +172,7 @@ double ComPuteBase(double num1 , char oper , double num2)
 		case '/':
 			if (num2 == 0)
 			{
-				puts("³öÏÖ´íÎó!³ıÊıÎª0");
+				puts("å‡ºç°é”™è¯¯!é™¤æ•°ä¸º0");
 				system("Pause");
 				exit(-1);
 			}
@@ -186,10 +185,14 @@ double ComPuteBase(double num1 , char oper , double num2)
 
 int main(int argc , char* argv[])
 {
+	//_CrtSetBreakAlloc(175);
+	// ReSharper disable once CppMsExtAddressOfClassRValue
 	auto str = Input();
-	string bufs[100];
+	auto bufs = new string[100];
 	auto len = ParseStr(str , bufs);
 	cout << Compute(bufs , len) << endl;
+	delete []bufs;
+	_CrtDumpMemoryLeaks();
 	system("Pause");
 	return 0;
 }

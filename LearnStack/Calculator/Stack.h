@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdlib>
 #include <memory>
 
 template<typename T> class Stack
@@ -8,10 +7,10 @@ private:
     typedef struct node
 	{
 		T data;
-		struct node *next;
+		std::shared_ptr<struct node> next;
 	}s_node_;
 private:
-	s_node_ *base;
+	std::shared_ptr<s_node_> base;
 public:
 	explicit Stack();
 	~Stack();
@@ -24,20 +23,20 @@ public:
 template <typename T>
 Stack<T>::Stack()
 {
-	base = new s_node_;
+	base = std::make_shared<s_node_>();
 	base->next = nullptr;
 }
 
 template <typename T>
 Stack<T>::~Stack()
 {
-	delete base;
+	base.reset();
 }
 
 template <typename T>
 void Stack<T>::push(T data)
 {
-	s_node_ *t_node = new s_node_;
+	std::shared_ptr<struct node> t_node = std::make_shared<s_node_>();
 	t_node->data = data;
 	t_node->next = base->next;
 	base->next = t_node;
@@ -47,9 +46,9 @@ template <typename T>
 void Stack<T>::pop()
 {
 	if (empty()) return;
-	s_node_ *t = base->next;
+	std::shared_ptr<struct node> t = base->next;
 	base->next = base->next->next;
-	delete t;
+	t.reset();
 }
 
 template <typename T>

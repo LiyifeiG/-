@@ -8,6 +8,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <algorithm>
 using namespace std;
 
 
@@ -269,6 +270,7 @@ bool HorsePath(PosType start)
 
 int main(int argc , char **args)
 {
+	//_CrtSetBreakAlloc(81);
 	system("color 0b");  //这一行是设置cmd窗口的颜色，可以不看
 	PosType start;           //定义start结构体元素
 	InitEmptyStack();        //初始化
@@ -279,6 +281,8 @@ int main(int argc , char **args)
 	SortMapByWeight();  //权值排序
 	HorsePath(start);   //从初始位置开始走
 	ShowPath();     //输出
+	free(sq_stack.base);
+	_CrtDumpMemoryLeaks(); 
 	system("Pause");  //这一行是暂停窗口，可以不看
 	return 0;
 }
